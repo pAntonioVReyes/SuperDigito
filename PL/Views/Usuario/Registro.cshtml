@@ -1,0 +1,61 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registro</h2>
+
+<hr />
+<br />
+@using (Html.BeginForm("Registro", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+
+        <div class="col-md-12">
+            <div class="row">
+
+                <div class="input-group">
+                    <div class="col-md-3">
+                        <label class="control-label">Nombre</label>
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @type = "text" })
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label">Contraseña</label>
+                        @Html.TextBoxFor(model => model.Contraseña, new { @class = "form-control", @type = "password" })
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label">Confirmar_Contraseña</label>
+                        <input class="form-control" name="password" type="password" value="" />
+                    </div>
+                </div>
+
+                <hr />
+                <br />
+
+                <div class="input-group">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-success" value="Registrarse" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+
+<div class="container">
+
+    <div class="col-md-12">
+        <div class="input-group">
+            <div class="col-md-6">
+                @Html.ActionLink("Volver", "Login", "Usuario", htmlAttributes: new { @class = "btn btn-danger", @type="submit" })
+            </div>
+        </div>
+    </div>
+
+</div>

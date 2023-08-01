@@ -1,0 +1,52 @@
+﻿@model ML.Usuario
+
+<h2>Login</h2>
+<br />
+
+@using (Html.BeginForm("Login", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="container" style="align-items:center;">
+
+        <div class="row">
+
+            <div class="input-group">
+                <div class="col-md-3">
+                    <label class="control-label" style="text-align:center; font:bold italic 200;">Usuario</label>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @name = "userName", @type = "text" })
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label" style="text-align:center; font:bold italic 200;">Contraseña</label>
+                    @Html.TextBoxFor(model => model.Contraseña, new { @class = "form-control", @name = "password", @type = "password" })
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container">
+        <div class="row">
+
+            <div class="input-group">
+
+                <div class="col-md-9">
+                    <input type="submit" class="btn btn-success" value="Iniciar_Sesión" />
+                </div>
+
+                <div class="col-md-3">
+                    @Html.ActionLink("Registrarse", "Registro", "Usuario", htmlAttributes: new { @class = "btn btn-info" })
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+<hr />

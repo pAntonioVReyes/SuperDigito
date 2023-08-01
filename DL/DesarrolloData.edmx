@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DesarrolloDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Operacion">
+          <Key>
+            <PropertyRef Name="IdOperacion" />
+          </Key>
+          <Property Name="IdOperacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="varchar(max)" />
+          <Property Name="Resultado" Type="int" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="FechaConsulta" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Usuario_Operacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Operacion" Type="Self.Operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Operacion">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="OperacionAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Numero" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Resultado" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OperacionDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOperacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OperacionDeleteAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="OperacionFechaUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOperacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OperacionGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="OperacionGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOperacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="OperacionGetByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="contraseña" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UsuarioDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsuarioGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UsuarioGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DesarrolloDataModelStoreContainer">
+          <EntitySet Name="Operacion" EntityType="Self.Operacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Usuario_Operacion" Association="Self.FK_Usuario_Operacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Operacion" EntitySet="Operacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DesarrolloDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Operacion">
+          <Key>
+            <PropertyRef Name="IdOperacion" />
+          </Key>
+          <Property Name="IdOperacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Resultado" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="FechaConsulta" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Operacion" FromRole="Operacion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Operacions" Relationship="Self.FK_Usuario_Operacion" FromRole="Usuario" ToRole="Operacion" />
+        </EntityType>
+        <Association Name="FK_Usuario_Operacion">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Operacion" Type="Self.Operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Operacion">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DesarrolloDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Operacions" EntityType="Self.Operacion" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Usuario_Operacion" Association="Self.FK_Usuario_Operacion">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Operacion" EntitySet="Operacions" />
+          </AssociationSet>
+          <FunctionImport Name="OperacionAdd">
+            <Parameter Name="Numero" Mode="In" Type="String" />
+            <Parameter Name="Resultado" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OperacionDelete">
+          <Parameter Name="idOperacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OperacionFechaUpdate">
+          <Parameter Name="idOperacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OperacionGetAll" ReturnType="Collection(DesarrolloDataModel.OperacionGetAll_Result)" />
+          <FunctionImport Name="OperacionGetById" ReturnType="Collection(DesarrolloDataModel.OperacionGetById_Result)">
+          <Parameter Name="idOperacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OperacionGetByUser" ReturnType="Collection(DesarrolloDataModel.OperacionGetByUser_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioAdd">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="contraseña" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioDelete">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(DesarrolloDataModel.UsuarioGetAll_Result)" />
+          <FunctionImport Name="UsuarioGetById" ReturnType="Collection(DesarrolloDataModel.UsuarioGetById_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="OperacionDeleteAll" />
+        </EntityContainer>
+        <ComplexType Name="OperacionGetAll_Result">
+          <Property Type="Int32" Name="IdOperacion" Nullable="false" />
+          <Property Type="String" Name="Numero" Nullable="true" />
+          <Property Type="Int32" Name="Resultado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaConsulta" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="OperacionGetById_Result">
+          <Property Type="Int32" Name="IdOperacion" Nullable="false" />
+          <Property Type="String" Name="Numero" Nullable="true" />
+          <Property Type="Int32" Name="Resultado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaConsulta" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="OperacionGetByUser_Result">
+          <Property Type="Int32" Name="IdOperacion" Nullable="false" />
+          <Property Type="String" Name="Numero" Nullable="true" />
+          <Property Type="Int32" Name="Resultado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaConsulta" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetAll_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="UsuarioGetById_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="Contraseña" Nullable="false" MaxLength="8" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DesarrolloDataModelStoreContainer" CdmEntityContainer="DesarrolloDataEntities">
+          <EntitySetMapping Name="Operacions">
+            <EntityTypeMapping TypeName="DesarrolloDataModel.Operacion">
+              <MappingFragment StoreEntitySet="Operacion">
+                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="FechaConsulta" ColumnName="FechaConsulta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DesarrolloDataModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="OperacionAdd" FunctionName="DesarrolloDataModel.Store.OperacionAdd" />
+          <FunctionImportMapping FunctionImportName="OperacionDelete" FunctionName="DesarrolloDataModel.Store.OperacionDelete" />
+          <FunctionImportMapping FunctionImportName="OperacionFechaUpdate" FunctionName="DesarrolloDataModel.Store.OperacionFechaUpdate" />
+          <FunctionImportMapping FunctionImportName="OperacionGetAll" FunctionName="DesarrolloDataModel.Store.OperacionGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DesarrolloDataModel.OperacionGetAll_Result">
+                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="FechaConsulta" ColumnName="FechaConsulta" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OperacionGetById" FunctionName="DesarrolloDataModel.Store.OperacionGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DesarrolloDataModel.OperacionGetById_Result">
+                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="FechaConsulta" ColumnName="FechaConsulta" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OperacionGetByUser" FunctionName="DesarrolloDataModel.Store.OperacionGetByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DesarrolloDataModel.OperacionGetByUser_Result">
+                <ScalarProperty Name="IdOperacion" ColumnName="IdOperacion" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="FechaConsulta" ColumnName="FechaConsulta" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioAdd" FunctionName="DesarrolloDataModel.Store.UsuarioAdd" />
+          <FunctionImportMapping FunctionImportName="UsuarioDelete" FunctionName="DesarrolloDataModel.Store.UsuarioDelete" />
+          <FunctionImportMapping FunctionImportName="UsuarioGetAll" FunctionName="DesarrolloDataModel.Store.UsuarioGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DesarrolloDataModel.UsuarioGetAll_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioGetById" FunctionName="DesarrolloDataModel.Store.UsuarioGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DesarrolloDataModel.UsuarioGetById_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="OperacionDeleteAll" FunctionName="DesarrolloDataModel.Store.OperacionDeleteAll" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
